@@ -1,4 +1,4 @@
-package model;
+package com.pluralsight;
 
 public class Transaction {
     //Declare Variable
@@ -9,13 +9,13 @@ public class Transaction {
     private double amount;
 
     //Constructor
-    public Transcation(String date, String time, String description, String vendor, Double amount);
-    this.date=date;
-    this.time=time;
-    this.description=description;
-    this.vendor=vendor;
-    this.amount=amount;
-
+    public Transaction(String date, String time, String description, String vendor, Double amount){
+          this.date=date;
+          this.time=time;
+          this.description=description;
+          this.vendor=vendor;
+          this.amount=amount;
+}
 // getter
     public String getDate() {
         return date;
@@ -39,6 +39,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return date + "|" + time"|" +description "|" +vendor "|" +amount;
+        return date + "|" + time +"|" + description + "|" +vendor +"|" + amount;
     }
 }
