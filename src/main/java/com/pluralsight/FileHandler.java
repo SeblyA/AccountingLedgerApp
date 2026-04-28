@@ -33,5 +33,20 @@ public class FileHandler {
 
 
         }
+
+        public void saveTransaction(Transaction transaction){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Transaction.csv", true));
+
+                writer.write(transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount());
+                writer.newLine();
+
+            writer.close();
+        }catch(IOException e){
+        System.out.println("Error Saving Transaction");
+        e.printStackTrace();
+
+        }
     }
 
+}
