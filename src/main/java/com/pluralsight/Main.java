@@ -27,34 +27,60 @@ public class Main {
                 case "D":
                     deposit(scanner, transactions, fileHandler);
                     break;
+                case "P":
+                    payment(scanner, transactions,fileHandler);
+                    break;
+
 
                 case "X":
                     running = false;
-                    System.out.println("Goodbye !");
+                    System.out.println("Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid choice ");
             }
         }
     }
-        public static void deposit (Scanner scanner, ArrayList < Transaction > transactions, FileHandler fileHandler){
-            System.out.print("Description: ");
-            String description = scanner.nextLine();
-            System.out.print("Vendor: ");
-            String vendor = scanner.nextLine();
-            System.out.print("Amount: ");
-            double amount = Double.parseDouble(scanner.nextLine());
 
-            String date = java.time.LocalDate.now().toString();
-            String time = java.time.LocalDate.now().toString();
-            Transaction transaction = new Transaction(date, time, description, vendor, amount);
-            transactions.add(transaction);
-            fileHandler.saveTransaction(transaction);
-            System.out.println("Deposit Saved ");
-        }
+    public static void deposit(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+        System.out.print("Vendor: ");
+        String vendor = scanner.nextLine();
+        System.out.print("Amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+
+        // save to csv file and Automatically generates timestamp
+        String date = java.time.LocalDate.now().toString();
+        String time = java.time.LocalDate.now().toString();
+        Transaction transaction = new Transaction(date, time, description, vendor, amount);
+        transactions.add(transaction);
+
+        //Writes to csv
+        fileHandler.saveTransaction(transaction);
+        System.out.println("Deposit Saved ");
     }
 
+    public static void payment(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+        System.out.print("Vendor: ");
+        String vendor = scanner.nextLine();
+        System.out.print("Amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
 
+        // save to csv file and Automatically generates timestamp
+        String date = java.time.LocalDate.now().toString();
+        String time = java.time.LocalDate.now().toString();
+        Transaction transaction = new Transaction(date, time, description, vendor, amount);
+        transactions.add(transaction);
+
+        //Writes to csv
+        fileHandler.saveTransaction(transaction);
+        System.out.println("Deposit Saved ");
+    }
+
+}
 
 
 

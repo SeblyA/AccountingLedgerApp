@@ -21,7 +21,7 @@ public class FileHandler {
                     String time = parts[1].trim();
                     String description = parts[2].trim();
                     String vendor = parts[3].trim();
-                    double amount = Double.parseDouble(parts[4].trim());
+                    double amount = Double.parseDouble(parts[4].trim()); // converts text to number
                     Transactions.add(new Transaction(date, time, description, vendor, amount));
                 }
                 }
