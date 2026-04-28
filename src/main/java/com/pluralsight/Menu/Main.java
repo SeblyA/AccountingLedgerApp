@@ -1,4 +1,7 @@
-package com.pluralsight;
+package com.pluralsight.Menu;
+import com.pluralsight.FileHandler;
+import com.pluralsight.Transaction;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -14,9 +17,8 @@ public class Main {
         ArrayList<Transaction> transactions = fileHandler.loadFile();
 
 
-        System.out.println("Home Screen");
         while (running) {
-
+            System.out.println("Home Screen");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment");
             System.out.println("L) Ledger");
@@ -28,9 +30,11 @@ public class Main {
                     deposit(scanner, transactions, fileHandler);
                     break;
                 case "P":
-                    payment(scanner, transactions,fileHandler);
+                    payment(scanner, transactions, fileHandler);
                     break;
-
+                case "L":
+                    ledgerScreen(scanner,transactions,fileHandler);
+                    break;
 
                 case "X":
                     running = false;
@@ -43,7 +47,7 @@ public class Main {
     }
 
     public static void deposit(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
-        System.out.print("Description: ");
+        System.out.print("Deposit Description: ");
         String description = scanner.nextLine();
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine();
@@ -62,12 +66,13 @@ public class Main {
     }
 
     public static void payment(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
-        System.out.print("Description: ");
+        System.out.print("Payment Description: ");
         String description = scanner.nextLine();
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine();
         System.out.print("Amount: ");
         double amount = Double.parseDouble(scanner.nextLine());
+        amount =-Math.abs(amount);
 
         // save to csv file and Automatically generates timestamp
         String date = java.time.LocalDate.now().toString();
@@ -79,8 +84,24 @@ public class Main {
         fileHandler.saveTransaction(transaction);
         System.out.println("Deposit Saved ");
     }
+    public static void ledgerScreen(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
+        boolean isRunning = true;
 
-}
+        while (isRunning) {
+            System.out.println("""
+                    Choose an option
+                    A)All
+                    D)Deposits
+                    P)Payments
+                    R)Reports
+                    """);
+            String choice=scanner.nextLine().trim().toUpperCase();
+
+
+        }
+    }
+    }
+
 
 
 
