@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.Service;
 
 public class Transaction {
     //Declare Variable
@@ -41,4 +41,5 @@ public class Transaction {
     public String toString() {
         return date + "|" + time +"|" + description + "|" +vendor +"|" + amount;
     }
+
 }
