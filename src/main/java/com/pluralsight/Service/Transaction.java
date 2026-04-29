@@ -1,27 +1,38 @@
 package com.pluralsight.Service;
+import java.time.*;
 
 public class Transaction {
     //Declare Variable
-    private String date;
-    private String time;
+    private  LocalDate date;
+    private  LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
     //Constructor
-    public Transaction(String date, String time, String description, String vendor, Double amount){
-          this.date=date;
-          this.time=time;
-          this.description=description;
-          this.vendor=vendor;
-          this.amount=amount;
-}
+
+
+    public Transaction() {
+    }
+
+
+
+    public Transaction(String date, String time, String description, String vendor, double amount) {
+        this.date = LocalDate.parse(date);
+        this.time = LocalTime.parse(time);
+        this.description = description;
+        this.vendor = vendor;
+        this.amount = amount;
+    }
+
 // getter
-    public String getDate() {
+
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
@@ -39,7 +50,12 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return date + "|" + time +"|" + description + "|" +vendor +"|" + amount;
+        return "Transaction{" +
+                "date=" + date +
+                ", time=" + time +
+                ", description='" + description + '\'' +
+                ", vendor='" + vendor + '\'' +
+                ", amount=" + amount +
+                '}';
     }
-
 }
