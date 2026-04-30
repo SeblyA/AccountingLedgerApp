@@ -3,11 +3,15 @@ import com.pluralsight.Service.FileHandler;
 import com.pluralsight.Service.Transaction;
 
 
+import javax.swing.text.DateFormatter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
+import static com.pluralsight.LedgerScreen.ledgerScreen;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -85,7 +89,7 @@ public class Main {
 
         String date = java.time.LocalDate.now().toString();
         String time = java.time.LocalDate.now().toString();
-        //Transaction transaction = new Transaction(localDate, localTime, description, vendor, amount);
+
         Transaction transaction = new Transaction();
         transactions.add(transaction);
 
@@ -93,205 +97,19 @@ public class Main {
         fileHandler.saveTransaction(transaction);
         System.out.println("Deposit Saved ");
     }
-
-    public static class LedgerScreen {
-        public static void displayLedgerScreen(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
-            boolean running = true;
-            String choice = scanner.nextLine().trim().toUpperCase();
-            while (running) {
-                System.out.println("""
-                        A)All
-                        D)Deposits
-                        P)Payments
-                        R)Reports
-                        Choose an option
-                        """);
-
-                switch (choice) {
-                    case "A":
-                        displayAll(transactions);
-                        break;
-                    case "D":
-                        displayDeposits(transactions);
-                        break;
-                    case "P":
-                        displayPayments(transactions);
-                        break;
-                    case "R":
-                        displayReportsMenu(scanner, transactions, fileHandler);
-                        break;
-                    default:
-                        System.out.println("Invalid option please choose A,D,P orR ");
-                }
-            }
-        }
-
-        public static void displayAll(ArrayList<Transaction> transactions) {
-            for (Transaction t : transactions) {
-                System.out.println(t.toString());
-            }
-        }
-
-        //Display deposits
-        public static void displayDeposits(ArrayList<Transaction> transaction) {
-            for (Transaction t : transaction) {
-                if (t.getAmount() > 0) { // checks deposits are positive
-                    System.out.println(t);
-                }
-            }
-        }
-
-        //Display payments
-        public static void displayPayments(ArrayList<Transaction> transaction) {
-            for (Transaction t : transaction) {
-                if (t.getAmount() < 0) {
-                    System.out.println(t);
-                }
-            }
-        }
-    }
-
-    public static void ledgerScreen(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
-        boolean isRunning = true;
-
-        while (isRunning) {
-            System.out.println("""
-                    A)All
-                    D)Deposits
-                    P)Payments
-                    R)Reports
-                    Choose an option
-                    """);
-            String choice = scanner.nextLine().trim().toUpperCase();
-            switch (choice) {
-                case "A":
-                    displayAll(transactions);
-                    break;
-                case "D":
-                    displayDeposits(transactions);
-                    break;
-                case "P":
-                    displayPayments(transactions);
-                    break;
-                case"R":
-                    displayReportsMenu(scanner, transactions, fileHandler);
-                    break;
-
-
-                default:
-                    System.out.println("Invalid option please choose A,D,P orR ");
-            }
-        }
-    }
-
-    public static void displayAll(ArrayList<Transaction> transactions) {
-        for (Transaction t : transactions) {
-            System.out.println(t);
-        }
-    }
-
-    //Display deposits
-    public static void displayDeposits(ArrayList<Transaction> transaction) {
-        for (Transaction t : transaction) {
-            if (t.getAmount() > 0) { // checks deposits are positive
-                System.out.println(t);
-            }
-        }
-    }
-
-    //Display payments
-    public static void displayPayments(ArrayList<Transaction> transaction) {
-        for (Transaction t : transaction) {
-            if (t.getAmount() < 0) {
-                System.out.println(t);
-            }
-        }
-    }
-
-    public static void displayReportsMenu(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
-        boolean running = true;
-        while (true) {
-
-
-            //Allows user to search Reports by date
-            System.out.println("""
-                    1)Month To Date
-                    2)Previous Month
-                    3)Year To Date
-                    4)Previous Year
-                    5)Search by Vendor
-                    O) Back to ledger
-                    H) Back to home page
-                    """);
-            String choice = scanner.nextLine();
-            switch (choice) {
-                case "1":
-                    displayMonthToDate (transactions);
-                    break;
-                case"2":
-                        displayPreviousMonth(transactions);
-                        break;
-            }
-        }
-    }
-
-    // prints current month report
-    public static void displayMonthToDate(ArrayList<Transaction> transaction) {
-        // LocalDate
-        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
-        LocalDate today = LocalDate.now();
-        FileHandler fileHandler = new FileHandler();
-        ArrayList<Transaction> transactions = fileHandler.loadFile();
-
-        boolean found =false;
-                System.out.println("------------------------------------------------------------------------------------");
-                System.out.printf("%-12s %-10s %-20s  %-15s %-10s%n"," Date", "Time", "Description", "vendor", "Amount");
-                System.out.println("------------------------------------------------------------------------------------");
-
-        for (Transaction t : transactions) {
-            LocalDate transactionDate = t.getDate();
-            if ((transactionDate.isEqual(firstDayOfMonth) || transactionDate.isAfter(firstDayOfMonth)) &&
-                    (transactionDate.isEqual(today) || transactionDate.isBefore(today))) {
-                found=true; // check if the report found
-                System.out.printf("%-12s %-10s %-20s %-15s $%.2f%n",
-                       t.getDate(),
-                       t.getTime(),
-                        t.getDescription(),
-                        t.getVendor(),
-                        t.getAmount());
-            }
-        }
-        if (!found) {
-            System.out.println("Search not found");
-        }
-
-    }
-    public static void displayPreviousMonth(ArrayList<Transaction> transactions) {
-
-    }
-
-    //prints Previous Year
-    public static int displayPreviousYear() {
-        FileHandler fileHandler = new FileHandler();
-        ArrayList<Transaction> transactions = fileHandler.loadFile();
-
-        LocalDate today = LocalDate.now();
-        int previousYearValue = today.minusYears(1).getYear();
-        for (Transaction t : transactions) {
-            LocalDate transactionDate = t.getDate();
-            // check condition if transaction is in previous year
-            if (transactionDate.getYear() == previousYearValue && transactionDate.getYear() != today.getYear()) {
-//                System.out.println("Previous Year: " + t.getDate() + "|" + t.getLocalTime() + "|" + t.getdescription + "|" + t.getvendor() + "|" + t.getAmount());
-
-            }
-        }
-
-        return 0;
-    }
 }
 
-//public void searchByVendor(String vendor) {
-//}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
