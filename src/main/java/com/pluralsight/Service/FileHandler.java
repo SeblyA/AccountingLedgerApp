@@ -23,7 +23,7 @@ public class FileHandler {
                     String description = parts[2].trim();
                     String vendor = parts[3].trim();
                     double amount = Double.parseDouble(parts[4].trim()); // converts text to number
-//                    Transactions.add(new Transaction(Localdate, Localtime, description, vendor, amount));
+                    Transactions.add(new Transaction(date, time, description, vendor, amount));
                 }
                 }
                 reader.close();

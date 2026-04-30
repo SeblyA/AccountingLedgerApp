@@ -1,10 +1,13 @@
 package com.pluralsight.Service;
-import java.time.*;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class Transaction {
     //Declare Variable
     private  LocalDate date;
-    private  LocalTime time;
+    private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
@@ -36,6 +39,14 @@ public class Transaction {
         return time;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -49,13 +60,10 @@ public class Transaction {
     }
 
     @Override
-    public String toString() {
-        return "Transaction{" +
-                "date=" + date +
-                ", time=" + time +
-                ", description='" + description + '\'' +
-                ", vendor='" + vendor + '\'' +
-                ", amount=" + amount +
-                '}';
-    }
+    public String toString (){
+         return String.format("%s| %s| %s| %s |$%.2f",date,time,description,vendor,amount);
 }
+
+
+    }
+
