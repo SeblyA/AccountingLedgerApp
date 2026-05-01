@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.Service;
 
 import com.pluralsight.Service.FileHandler;
 import com.pluralsight.Service.Transaction;
@@ -8,13 +8,15 @@ import java.util.Scanner;
 
 import static com.pluralsight.Service.Report.displayReportsMenu;
 
+
 public class LedgerScreen {
 
 public static void ledgerScreen(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
     boolean isRunning = true;
 
     while (isRunning) {
-        System.out.println("""
+        System.out.println(""" 
+                    Ledger Screen
                     A)All
                     D)Deposits
                     P)Payments

@@ -11,6 +11,7 @@ The Accounting Ledger Application is a Java-based console program that allows us
 #### Users can record:
 
 * Deposits (money coming in)
+
 * Payments (money going out)
 
 
@@ -26,17 +27,18 @@ Users can view all recorded transactions in a structured format.
 
 The application provides multiple report options:
 
-A) All Transactions
 
-B) Month-To-Date
+1) Month-To-Date
 
-C) Previous Month
+2) Previous Month
 
-D) Year-To-Date
+3) Year-To-Date
 
-E) Previous Year
+4) Previous Year
 
-F) Search by Vendor
+5) Search by Vendor
+
+6) All Transactions
 
 These reports help users analyze their financial activity over time.
 

@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.pluralsight.LedgerScreen.ledgerScreen;
+
+import static com.pluralsight.Service.LedgerScreen.ledgerScreen;
 //import java.time.LocalDate;
 
 public class Report {
@@ -17,6 +18,7 @@ public class Report {
 
             //Allows user to search Reports by date
             System.out.println("""
+                    Search Reports
                     1)Month To Date
                     2)Previous Month
                     3)Year To Date
@@ -50,8 +52,15 @@ public class Report {
                     ledgerScreen(scanner, transactions, fileHandler);
                    break;
                 case"H":
-                   return;
-                    default:
+                    System.out.println("""
+                                    A)All
+                                    P)Payment
+                                    L)Ledger
+                                    X) Exit
+                                    """); // Back to homepage
+                    break;
+
+                default:
                         System.out.println("Invalid choice. Please Try again.");
 
 
@@ -88,7 +97,7 @@ public class Report {
         }
 
     }
-
+// print Previous Month
     public static void displayPreviousMonth(ArrayList<Transaction> transaction) {
         FileHandler fileHandler = new FileHandler();
         ArrayList<Transaction> transactions = fileHandler.loadFile();
@@ -112,7 +121,7 @@ public class Report {
         }
 
     }
-
+//Prints Annual reports
     public static void displayYearToDate(ArrayList<Transaction> transaction) {
         FileHandler fileHandler = new FileHandler();
         ArrayList<Transaction> transactions = fileHandler.loadFile();
@@ -158,7 +167,7 @@ public class Report {
         return 0;
     }
 
-
+ // search by Vendor
     public static void displaySearchByVendor(ArrayList<Transaction> transactions, Scanner scanner) {
         System.out.println(" Enter Vendor Name: ");
         String Vendor = scanner.nextLine();
@@ -169,7 +178,7 @@ public class Report {
             }
         }
     }
-
+// allows user to search reports  by date
     public static void customSearch(ArrayList<Transaction> transactions, Scanner scanner) {
         System.out.print("Enter start date yyyy-MM-dd : ");
         String start = scanner.nextLine();

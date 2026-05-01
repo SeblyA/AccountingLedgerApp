@@ -37,13 +37,13 @@ public class FileHandler {
 
 
         }
-
+        // saves transactions to CSV file
         public void saveTransaction(Transaction transaction){
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter("Transaction.csv", true));
 
                 writer.write(transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount());
-                writer.newLine();
+                writer.newLine();// Next line
 
             writer.close();
         }catch(IOException e){

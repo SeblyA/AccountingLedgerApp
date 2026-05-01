@@ -1,4 +1,5 @@
 package com.pluralsight.Menu;
+
 import com.pluralsight.Service.FileHandler;
 import com.pluralsight.Service.Transaction;
 
@@ -6,7 +7,7 @@ import com.pluralsight.Service.Transaction;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import static com.pluralsight.LedgerScreen.ledgerScreen;
+import static com.pluralsight.Service.LedgerScreen.ledgerScreen;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -21,6 +22,7 @@ public class Main {
         FileHandler fileHandler = new FileHandler();
         ArrayList<Transaction> transactions = fileHandler.loadFile();
 
+//Display Home Screen options
 
         while (running) {
             System.out.println("Home Screen");
@@ -51,7 +53,7 @@ public class Main {
             }
         }
     }
-
+// Deposit users Input
     public static void deposit(Scanner scanner, ArrayList<Transaction> transactions, FileHandler fileHandler) {
         System.out.print("Deposit Description: ");
         String description = scanner.nextLine();
