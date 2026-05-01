@@ -1,13 +1,8 @@
-package com.pluralsight;
+package com.pluralsight.Menu;
 import com.pluralsight.Service.FileHandler;
 import com.pluralsight.Service.Transaction;
 
 
-import javax.swing.text.DateFormatter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -84,13 +79,12 @@ public class Main {
         String vendor = scanner.nextLine();
         System.out.print("Amount: ");
         double amount = Double.parseDouble(scanner.nextLine());
-        amount = -Math.abs(amount);
-
+        amount = -Math.abs(amount);// Shows payments as negative
 
         String date = java.time.LocalDate.now().toString();
-        String time = java.time.LocalDate.now().toString();
+        String time = java.time.LocalTime.now().withNano(0).toString();
 
-        Transaction transaction = new Transaction();
+        Transaction transaction = new Transaction(date, time, description, vendor, amount);
         transactions.add(transaction);
 
         //Writes to csv

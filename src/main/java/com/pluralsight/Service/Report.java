@@ -3,6 +3,8 @@ package com.pluralsight.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static com.pluralsight.LedgerScreen.ledgerScreen;
 //import java.time.LocalDate;
 
 public class Report {
@@ -20,6 +22,7 @@ public class Report {
                     3)Year To Date
                     4)Previous Year
                     5)Search by Vendor
+                    6)Custom Search
                     O) Back to ledger
                     H) Back to home page
                     """);
@@ -37,6 +40,21 @@ public class Report {
                 case "4":
                     displayPreviousYear();
                     break;
+                case "5":
+                    displaySearchByVendor(transactions, scanner);
+                    break;
+                case "6":
+                    customSearch(transactions, scanner);
+                    break;
+                case"O":
+                    ledgerScreen(scanner, transactions, fileHandler);
+                   break;
+                case"H":
+                   return;
+                    default:
+                        System.out.println("Invalid choice. Please Try again.");
+
+
             }
         }
     }
@@ -50,6 +68,7 @@ public class Report {
         ArrayList<Transaction> transactions = fileHandler.loadFile();
 
         boolean found = false;
+
 
         for (Transaction t : transactions) {
             LocalDate transactionDate = t.getDate();
@@ -139,11 +158,65 @@ public class Report {
         return 0;
     }
 
+
+    public static void displaySearchByVendor(ArrayList<Transaction> transactions, Scanner scanner) {
+        System.out.println(" Enter Vendor Name: ");
+        String Vendor = scanner.nextLine();
+        System.out.println("Reports by Vendor Name " + Vendor);
+        for (Transaction t : transactions) {
+            if (t != null && t.getVendor().toLowerCase().contains(Vendor.toLowerCase())) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    public static void customSearch(ArrayList<Transaction> transactions, Scanner scanner) {
+        System.out.print("Enter start date yyyy-MM-dd : ");
+        String start = scanner.nextLine();
+
+        System.out.print("Enter end date yyyy-MM-dd : ");
+        String end = scanner.nextLine();
+
+        System.out.print("Enter description: ");
+        String description = scanner.nextLine().toLowerCase();
+
+        System.out.print("Enter vendor : ");
+        String vendor = scanner.nextLine().toLowerCase();
+
+        for (Transaction t : transactions) {
+
+            LocalDate startDate =null;
+            LocalDate endDate = null;
+            if (!start.isEmpty()) {
+                startDate = LocalDate.parse(start);
+            }
+            if (!end.isEmpty()) {
+                endDate = LocalDate.parse(end);
+            }
+            boolean isMatch = true;
+
+            if (startDate != null && t.getDate().isBefore(startDate)) {
+                isMatch = false;
+            }
+            if (endDate != null && t.getDate().isAfter(endDate)) {
+                isMatch = false;
+            }
+            if (!description.isEmpty() &&
+                    !t.getDescription().toLowerCase().contains(description)) {
+                isMatch = false;
+            }
+            if (!vendor.isEmpty() &&
+                    !t.getVendor().toLowerCase().contains(vendor)) {
+                isMatch = false;
+            }
+            if (isMatch) {
+                System.out.println(t);
+            }
+
+        }
+    }
 }
-//public void searchByVendor(String vendor) {
-//public static void printHeader() {
-//       System.out.println("------------------------------------------------------------------------------------");
-//       System.out.printf("%-12s %-10s %-20s  %-15s %-10s%n", " Date", "Time", "Description", "vendor", "Amount");
-//       System.out.println("------------------------------------------------------------------------------------");
-//}
+
+
+
 

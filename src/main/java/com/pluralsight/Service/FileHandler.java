@@ -2,6 +2,7 @@ package com.pluralsight.Service;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Comparator;
 
 
 public class FileHandler {
@@ -30,6 +31,8 @@ public class FileHandler {
             }catch(Exception e){
                 e.printStackTrace();
             }
+        // Sort newest reports first
+        Transactions.sort(Comparator .comparing(Transaction::getDate, Comparator.reverseOrder()) .thenComparing(Transaction::getTime, Comparator.reverseOrder()) );
             return Transactions;
 
 
