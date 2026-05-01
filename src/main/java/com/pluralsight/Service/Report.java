@@ -77,7 +77,9 @@ public class Report {
         ArrayList<Transaction> transactions = fileHandler.loadFile();
 
         boolean found = false;
-
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.printf("%-12s %-10s %-20s  %-15s %-10s%n"," Date", "Time", "Description", "vendor", "Amount");
+        System.out.println("-------------------------------------------------------------------------------");
 
         for (Transaction t : transactions) {
             LocalDate transactionDate = t.getDate();
@@ -104,6 +106,10 @@ public class Report {
         LocalDate today = LocalDate.now();
         LocalDate startOfLastMonth = today.minusMonths(1).withDayOfMonth(1);
         LocalDate endOfLastMonth = today.withDayOfMonth(1).minusDays(1);
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.printf("%-12s %-10s %-20s  %-15s %-10s%n"," Date", "Time", "Description", "vendor", "Amount");
+        System.out.println("-------------------------------------------------------------------------------");
+
 
         for (Transaction t : transactions) {
             LocalDate transactionDate = t.getDate();
@@ -127,6 +133,10 @@ public class Report {
         ArrayList<Transaction> transactions = fileHandler.loadFile();
         LocalDate today = LocalDate.now();
         LocalDate lastMonth = LocalDate.now().minusYears(1);
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.printf("%-12s %-10s %-20s  %-15s %-10s%n"," Date", "Time", "Description", "vendor", "Amount");
+        System.out.println("-------------------------------------------------------------------------------");
+
         for (Transaction t : transactions) {
             LocalDate transactionDate = t.getDate();
 
@@ -149,6 +159,10 @@ public class Report {
         LocalDate today = LocalDate.now();
         LocalDate startOfLastYear = today.minusYears(1).withDayOfYear(1);
         LocalDate endOfLastYear = today.withDayOfYear(1).minusDays(1);
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.printf("%-12s %-10s %-20s  %-15s %-10s%n"," Date", "Time", "Description", "vendor", "Amount");
+        System.out.println("-------------------------------------------------------------------------------");
+
         for (Transaction t : transactions) {
             LocalDate transactionDate = t.getDate();
             if (!transactionDate.isBefore(startOfLastYear) &&
